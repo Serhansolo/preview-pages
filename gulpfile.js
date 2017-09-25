@@ -12,7 +12,7 @@ gulp.task('HTML', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['HTML'], function() {
     function formatDate(date) {
         function leadingZero(num) {
             return num < 10 ? '0' + num : num;
@@ -36,5 +36,6 @@ gulp.task('deploy', function() {
         message: 'Update: ' + formatDate(new Date())
     };
 
+    console.log("Update build finished, committing and pushing update: " + formatDate(new Date()));
     preview.publish('build', opts, function(err){if(err)console.log(err)});
 });
